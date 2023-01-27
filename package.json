@@ -1,0 +1,44 @@
+{
+  "name": "postcss-media-query-importer",
+  "version": "1.0.0",
+  "description": "PostCSS plugin to import media queries",
+  "author": "thomasefbland",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "postcss-media-query-importer",
+    "media queries",
+    "media query"
+  ],
+  "scripts": {
+    "test": "jest"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "peerDependencies": {
+    "postcss": "^8.4.21"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "postcss": "^8.4.21",
+    "release-it": "^15.6.0"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore(release): v${version}",
+      "push": true,
+      "commit": true,
+      "tag": true,
+      "requireCommits": false,
+      "requireUpstream": false
+    },
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": true
+    }
+  }
+}

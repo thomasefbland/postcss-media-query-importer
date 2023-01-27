@@ -1,0 +1,8 @@
+{
+  "mediaQueries": {
+    "xs": "@media all and (max-width: 699px)",
+    "sm": "@media all and (min-width: 700px) and (max-width: 1249px)",
+    "md": "@media all and (min-width: 1250px) and (max-width: 1439px)",
+    "lg": "@media all and (min-width: 1440px)"
+  }
+}
