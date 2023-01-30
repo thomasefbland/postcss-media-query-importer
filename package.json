@@ -1,6 +1,6 @@
 {
   "name": "postcss-media-query-importer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "PostCSS plugin to import media queries",
   "author": "thomasefbland",
   "keywords": [
@@ -49,9 +49,9 @@
           "dist/package.json"
         ]
       }
+    },
+    "hooks": {
+      "after:bump": "pnpm build"
     }
-  },
-  "hooks": {
-    "after:bump": "pnpm build"
   }
 }
