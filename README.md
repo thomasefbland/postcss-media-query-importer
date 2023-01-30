@@ -79,6 +79,8 @@ module.exports = {
 
 #### <a name="#mediaQueries"></a> `mediaQueries`
 
+If no option is specified, media queries will be set to the option below
+
 ```js
 mediaQueries: {
   xs: "@media all and (max-width: 699px)",

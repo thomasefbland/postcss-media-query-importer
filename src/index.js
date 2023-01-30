@@ -6,7 +6,14 @@ const { readdir, stat, readFile } = require("fs/promises");
 const path = require("path");
 
 module.exports = (opts = {}) => {
-  const mediaQueries = Object(opts).mediaQueries;
+  let mediaQueries = Object(opts).mediaQueries;
+
+  mediaQueries = mediaQueries ?? {
+    xs: "@media all and (max-width: 699px)",
+    sm: "@media all and (min-width: 700px) and (max-width: 1249px)",
+    md: "@media all and (min-width: 1250px) and (max-width: 1439px)",
+    lg: "@media all and (min-width: 1440px)",
+  };
 
   // const toplevelDir = path.resolve(process.cwd());
 
@@ -16,13 +23,17 @@ module.exports = (opts = {}) => {
     AtRule: {
       importMQ: async (node, { AtRule }) => {
         if (!node.params) throw node.error("No parameter provided");
-        if (typeof node.params !== "string" || node.params.length < 4) throw node.error("Invalid parameter provided");
+        if (typeof node.params !== "string" || node.params.length < 4)
+          throw node.error("Invalid parameter provided");
 
         const nodeFile = node.source.input.file;
 
         if (nodeFile == null) throw node.error("Error parsing file location");
 
-        const resolvedPath = path.resolve(nodeFile, node.params.slice(1, node.params.length - 1));
+        const resolvedPath = path.resolve(
+          nodeFile,
+          node.params.slice(1, node.params.length - 1)
+        );
 
         // const resolvedPath = nodeFile
         //   ? path.resolve(nodeFile, node.params.slice(1, node.params.length - 1))
@@ -30,18 +41,19 @@ module.exports = (opts = {}) => {
 
         try {
           const stats = await stat(resolvedPath);
-          if (!stats.isDirectory()) throw node.error("Referenced location is not a directory");
+          if (!stats.isDirectory())
+            throw node.error("Referenced location is not a directory");
 
           const files = await readdir(resolvedPath);
 
           const importedMediaQueries = new Map();
 
           for (const file of files) {
-            const fileExtensionIndex = file.indexOf('.css' || '.postcss');
-            if(fileExtensionIndex < 0) continue;
+            const fileExtensionIndex = file.indexOf(".css" || ".postcss");
+            if (fileExtensionIndex < 0) continue;
 
-            const fileName = (file.substring(0, fileExtensionIndex));
-            if ( mediaQueries[fileName] == null ) continue;
+            const fileName = file.substring(0, fileExtensionIndex);
+            if (mediaQueries[fileName] == null) continue;
 
             const filePath = path.join(resolvedPath, file);
 
