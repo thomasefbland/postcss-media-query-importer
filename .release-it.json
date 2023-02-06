@@ -1,0 +1,25 @@
+{
+	"git": {
+		"commitMessage": "chore(release): v${version}",
+		"push": true,
+		"commit": true,
+		"tag": true,
+		"requireCommits": false,
+		"requireUpstream": false
+	},
+	"github": {
+		"release": true
+	},
+	"npm": {
+		"publish": true,
+		"publishPath": "./dist"
+	},
+	"plugins": {
+		"@release-it/bumper": {
+			"out": ["dist/package.json"]
+		}
+	},
+	"hooks": {
+		"after:bump": "pnpm build"
+	}
+}
