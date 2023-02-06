@@ -11,15 +11,6 @@
 		"release": true
 	},
 	"npm": {
-		"publish": true,
-		"publishPath": "./dist"
-	},
-	"plugins": {
-		"@release-it/bumper": {
-			"out": ["dist/package.json"]
-		}
-	},
-	"hooks": {
-		"after:bump": "pnpm build"
+		"publish": true
 	}
 }
