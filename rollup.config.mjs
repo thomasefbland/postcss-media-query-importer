@@ -10,5 +10,5 @@ export default {
 		{ file: "dist/index.mjs", format: "esm" },
 	],
 	plugins: [typescript({ tsconfig: "tsconfig.json" })],
-	external: ["fs/promises", "path"],
+	external: ["fs/promises", "path", "fs.promises.exists"],
 };

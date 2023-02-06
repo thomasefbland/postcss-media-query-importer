@@ -2,6 +2,7 @@ import type { AtRule, Node, PluginCreator } from "postcss";
 
 import { readdir, stat, readFile } from "fs/promises";
 import path from "path";
+import fsExists from "fs.promises.exists";
 
 import { PluginOptions } from "./lib/types";
 import ErrorHandler from "./lib/ErrorHandler";
@@ -9,10 +10,9 @@ import { parse } from "./lib/paramParser";
 
 const defaultOptions: PluginOptions = {
 	mediaQueries: {
-		xs: "@media all and (max-width: 699px)",
-		sm: "@media all and (min-width: 700px) and (max-width: 1249px)",
-		md: "@media all and (min-width: 1250px) and (max-width: 1439px)",
-		lg: "@media all and (min-width: 1440px)",
+		small: "@media (max-width: 699px)",
+		medium: "@media (min-width: 700px) and (max-width: 1249px)",
+		large: "@media (min-width: 1250px)",
 	},
 	aliasConfigPath: null,
 	defaultImportSettings: {
@@ -67,7 +67,15 @@ const pluginCreator: PluginCreator<PluginOptions> = (options?: PluginOptions) =>
 
 				if (!url) throw errorHandler.error("Issue parsing parameters");
 
-				let resolvedPath = path.resolve(__baseDir, url);
+				const nodeFile = node.source.input.file;
+
+				if (nodeFile == null) throw node.error("Error parsing file location");
+
+				let resolvedPath = path.resolve(nodeFile, url);
+
+				const relativePathExists = await fsExists(resolvedPath);
+
+				if (!relativePathExists) resolvedPath = path.resolve(__baseDir, url);
 
 				const stats = await stat(resolvedPath);
 				if (!stats.isDirectory()) throw errorHandler.error("Referenced location is not a directory");

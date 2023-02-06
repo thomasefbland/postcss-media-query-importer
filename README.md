@@ -1,58 +1,34 @@
 # postcss-media-query-importer
 
-A [PostCSS] plugin to easily manage media queries in your project. Define media queries and corresponding filenames in the plugin options. Then use `@importMQ '[path-to-folder]'` anywhere in your css
+A [PostCSS](https://github.com/postcss/postcss) plugin to easily manage media queries in your project. Define media queries and corresponding filenames in the plugin options. Then use `@import-mq '[path-to-folder]'` anywhere in your css.
+<br/>
 
-[postcss]: https://github.com/postcss/postcss
+### To-Do
 
-### Example
+| Status | Task | Priority |
+| --- | --- | --- |
+| ❌ | Example project files | **HIGH** |
+| ❌ | Option to merge queries when no file present | **LOW** |
+| ❌ | Fix Tests | **HIGH** |
+| ❌ | Add parsing for media queries ranges | **LOW** |
+| ✅ | Update Docs | **HIGH** |
+| ✅ | [Indexing option for imports](/docs/ImportSettings.md#index) | **HIGH** |
+| ✅ | [Parse aliases from urls](/docs/ImportSettings.md#aliases) | **HIGH** |
+| ✅ | [Import aliases from config](/docs/PluginOptions.md#aliasconfigpath) | **HIGH** |
 
-#### Input
+<br/>
 
-```css
-/* styles/foo.postcss */
-.foo {
-  font-family: "Comic Sans";
-  color: yellow;
-}
+### <a name="#example"></a> Simple Example
 
-@importMQ '../foo-responsive'
+| Input | Output |
+| ------------- | ------------- |
+| ![Example Input CSS](./docs/assets/example-input-css.png) | ![Example Output CSS](./docs/assets/example-output-css.png) |
 
+![Example PostCSS Config](./docs/assets/example-postcss-config.png)
 
-/* styles/foo-responsive/xs.postcss */
-.foo {
-  font-size: 12px;
-}
+Postcss-media-query-importer can also include an "index" file when importing. See [configuration](#configuration) for more details.
 
-
-/* styles/foo-responsive/lg.postcss */
-.foo {
-  font-size: 18px;
-}
-```
-
-#### Output
-
-```css
-/* styles/foo.postcss */
-.foo {
-  font-family: "Comic Sans";
-  color: yellow;
-}
-
-@media all and (max-width: 699px) {
-  .foo {
-    font-size: 12px;
-  }
-}
-
-@media all and (min-width: 1440px) {
-  .foo {
-    font-size: 18px;
-  }
-}
-```
-
-## Usage
+## <a name="#installation"></a> Usage & Installation
 
 **Step 1:** Install the plugin:
 
@@ -75,27 +51,18 @@ module.exports = {
 }
 ```
 
-## Options
+**Step 3:** In any postcss file or postcss <style\> tag, use `@import-mq 'path/to/folder'`.
+<br/>The path can either be relative to the current file, or relative to the project root directory.
 
-#### <a name="#mediaQueries"></a> `mediaQueries`
+---
 
-If no option is specified, media queries will be set to the option below
+## <a name="#configuration"></a> Configuration
 
-```js
-mediaQueries: {
-  xs: "@media all and (max-width: 699px)",
-  sm: "@media all and (min-width: 700px) and (max-width: 1249px)",
-  md: "@media all and (min-width: 1250px) and (max-width: 1439px)",
-  lg: "@media all and (min-width: 1440px)"
-}
-```
+### <a href="/docs/PluginOptions.md" style="color:inherit">Plugin Options</a>
+- [mediaQueries](/docs/PluginOptions.md#mediaqueries): Define media queries and the associated file names.
+- [aliasConfigPath](/docs/PluginOptions.md#aliasConfigPath): File to import url aliases from.
+- [defaultImportSettings](/docs/PluginOptions.md#defaultImportSettings): Override default values for [Import Settings](/docs/ImportSettings.md).
 
-Media queries can be associated with whatever filenames you want. xs, sm, md, & lg are just examples.
-
-Each imported folder does not need to have a corresponding file for every defined media query. From the example above, an imported folder could have an `sm.css` & `md.css` file, but no `xs.css` or `lg.css` file.
-
-Media queries will be imported in the order they are defined in the config options. In the example above, each `@importMQ` will first import css from an `xs.css` file, then an `sm.css` file, and so on. Again, each folder does not need to have a file for each media query.
-
-Each media query rule will be written exactly as typed in the config options. There is no parsing occurring.
-
-Media query files must be .postcss or .css files.
+### <a href="/docs/ImportSettings.md" style="color:inherit">Import Settings</a>
+- [index](/docs/ImportSettings.md#index): Import an additional folder index file along with media queries
+- [aliases](/docs/ImportSettings.md#aliases): Define aliases to be parsed out of import urls

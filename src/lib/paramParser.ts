@@ -1,8 +1,8 @@
 import { PluginOptions, ImportSettings } from "./types";
 import ErrorHandler from "./ErrorHandler";
 
-const URL_ONLY_REGEX = /^('|")[A-Za-z0-9\s\_\./$~]{5,}('|");?$/;
-const PARENS_PARAMS_REGEX = /^\(('|")[A-Za-z0-9\s\_\./$~]{5,}('|")(,\s*{.+})?\)$/;
+const URL_ONLY_REGEX = /^('|")[A-Za-z0-9\s\_\.\-/$~]{5,}('|");?$/;
+const PARENS_PARAMS_REGEX = /^\(('|")[A-Za-z0-9\s\_\.\-/$~]{5,}('|")(,\s*{.+})?\)$/;
 
 export function parse(
 	params: string,
@@ -18,6 +18,8 @@ export function parse(
 
 		if (settings.aliases) url = replaceAliases(url, settings);
 
+		url = url.replace(/['"]+/g, "");
+
 		return {
 			url,
 			settings,
@@ -29,6 +31,8 @@ export function parse(
 
 		if (settings.aliases) url = replaceAliases(url, settings);
 
+		url = url.replace(/['"]+/g, "");
+
 		return {
 			url,
 			settings,
@@ -39,7 +43,6 @@ export function parse(
 function replaceAliases(url: string, settings: ImportSettings) {
 	for (const alias of Object.getOwnPropertyNames(settings.aliases)) {
 		url = url.replaceAll(alias, settings.aliases[alias]);
-		url = url.replace(/['"]+/g, "");
 	}
 	return url;
 }
