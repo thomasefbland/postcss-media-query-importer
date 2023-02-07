@@ -2,7 +2,7 @@
 
 All options are optional.
 
-## <a name="#mediaQueries"></a> `mediaQueries`
+## `mediaQueries`
 
 If no option is specified, media queries will be set to the option below
 
@@ -32,7 +32,7 @@ Each media query rule will be written exactly as typed in the config options. Th
 
 Media query files must be either `.postcss` or `.css` files. You can mix file types.
 
-## <a name="#aliasConfigPath"></a> `aliasConfigPath`
+## `aliasConfigPath`
 
 Imports can optionally parse the provided path for aliases (See [Import Settings](/docs/ImportSettings.md#aliases)). If you want to avoid passing these arguments manually, this option will parse them from a config on **initial** preprocessing. The file must be at the root of your project and the aliases must be defined in an `alias` Object somewhere in the file's tree.
 
@@ -53,7 +53,7 @@ module.exports = config;
 ![Svelte Example](/docs/assets/svelte-config.png)
 ![Vite Example](/docs/assets/vite-config.png)
 
-## <a name="#defaultImportSettings"></a> `defaultImportSettings`
+## `defaultImportSettings`
 
 If you want to change the default [Import Settings](/docs/ImportSettings.md), do it here. For example, if [aliasConfigPath](#aliasConfigPath) cannot parse your config file, you can provide aliases with this option rather than to each individual `@import-mq`. Another excellent use case is to enable [indexing](/docs/ImportSettings.md#index) by default
 

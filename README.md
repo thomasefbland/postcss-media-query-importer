@@ -18,7 +18,7 @@ A [PostCSS](https://github.com/postcss/postcss) plugin to easily manage media qu
 
 <br/>
 
-### <a name="#example"></a> Simple Example
+### <a id="example"></a> Simple Example
 
 | Input | Output |
 | ------------- | ------------- |
@@ -28,7 +28,7 @@ A [PostCSS](https://github.com/postcss/postcss) plugin to easily manage media qu
 
 Postcss-media-query-importer can also include an "index" file when importing. See [configuration](#configuration) for more details.
 
-## <a name="#installation"></a> Usage & Installation
+## <a id="installation"></a> Usage & Installation
 
 **Step 1:** Install the plugin:
 
@@ -56,13 +56,13 @@ module.exports = {
 
 ---
 
-## <a name="#configuration"></a> Configuration
+## Configuration
 
-### <a href="/docs/PluginOptions.md" style="color:inherit">Plugin Options</a>
+### <a href="/docs/PluginOptions.md">Plugin Options</a>
 - [mediaQueries](/docs/PluginOptions.md#mediaqueries): Define media queries and the associated file names.
 - [aliasConfigPath](/docs/PluginOptions.md#aliasConfigPath): File to import url aliases from.
 - [defaultImportSettings](/docs/PluginOptions.md#defaultImportSettings): Override default values for [Import Settings](/docs/ImportSettings.md).
 
-### <a href="/docs/ImportSettings.md" style="color:inherit">Import Settings</a>
+### <a href="/docs/ImportSettings.md">Import Settings</a>
 - [index](/docs/ImportSettings.md#index): Import an additional folder index file along with media queries
 - [aliases](/docs/ImportSettings.md#aliases): Define aliases to be parsed out of import urls
