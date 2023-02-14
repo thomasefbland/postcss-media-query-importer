@@ -1,4 +1,4 @@
-import type { AtRule, Node, PluginCreator } from "postcss";
+import type { AtRule, PluginCreator } from "postcss";
 
 import { readdir, stat, readFile } from "fs/promises";
 import path from "path";
@@ -57,7 +57,7 @@ const pluginCreator: PluginCreator<PluginOptions> = (options?: PluginOptions) =>
 		postcssPlugin: "postcss-media-query-importer",
 
 		AtRule: {
-			"import-mq": async (node, { AtRule }) => {
+			"import-mq": async (node, { AtRule, result }) => {
 				const errorHandler = new ErrorHandler(node);
 
 				if (!node.params) throw errorHandler.error("No parameter provided");
@@ -117,6 +117,7 @@ const pluginCreator: PluginCreator<PluginOptions> = (options?: PluginOptions) =>
 							const mediaQuery = new AtRule({
 								name: "media",
 								params: options.mediaQueries[fileName].split("@media ")[1],
+								source: node.source,
 							});
 
 							mediaQuery.append(fileContent);
@@ -137,6 +138,12 @@ const pluginCreator: PluginCreator<PluginOptions> = (options?: PluginOptions) =>
 					} else {
 						errorHandler.error("Referenced directory is empty");
 					}
+
+					result.messages.push({
+						type: "dir-dependency",
+						plugin: "postcss-media-query-importer",
+						dir: resolvedPath,
+					});
 					node.remove();
 				} catch (error) {
 					throw node.error(error);

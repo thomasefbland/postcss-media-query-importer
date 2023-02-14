@@ -11,6 +11,9 @@ A [PostCSS](https://github.com/postcss/postcss) plugin to easily manage media qu
 | ❌ | Option to merge queries when no file present | **LOW** |
 | ❌ | Fix Tests | **HIGH** |
 | ❌ | Add parsing for media queries ranges | **LOW** |
+| ❌ | Hot Reload when importing with svelte style tag | **MEDIUM** |
+| ❌ | Overhaul Error/Warn Handling | **LOW** |
+| ✅ | Hot Reload Added | **HIGH** |
 | ✅ | Update Docs | **HIGH** |
 | ✅ | [Indexing option for imports](/docs/ImportSettings.md#index) | **HIGH** |
 | ✅ | [Parse aliases from urls](/docs/ImportSettings.md#aliases) | **HIGH** |
